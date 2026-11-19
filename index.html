@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sunjida Jannat Saom | Software Developer & Visual Designer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0D1117;
+      color: #E6EDF3;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .glass-card {
+      background: rgba(22, 27, 34, 0.72);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(56, 189, 248, 0.16);
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.55);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.25);
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #38BDF8, #A855F7, #38BDF8);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 4s linear infinite;
+    }
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+    /* Floating Profile Photo Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float {
+      animation: float 5s ease-in-out infinite;
+    }
+    /* Glowing Rotating Border Behind Photo */
+    @keyframes spinSlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .glow-ring {
+      background: conic-gradient(from 0deg, #38BDF8, #A855F7, #10B981, #38BDF8);
+      animation: spinSlow 8s linear infinite;
+    }
+    /* Blinking Typewriter Cursor */
+    .cursor-blink {
+      display: inline-block;
+      width: 3px;
+      height: 1.1em;
+      background-color: #38BDF8;
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 0.8s infinite;
+    }
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    /* Subtle Background Grid */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-sky-500/30 selection:text-sky-200 bg-grid">
+
+  <!-- Navbar -->
+  <header class="fixed top-0 w-full z-50 bg-[#0D1117]/85 backdrop-blur-md border-b border-slate-800/80">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="#" class="font-heading text-xl font-bold tracking-tight text-white">
+        Saom<span class="text-sky-400">.</span>
+      </a>
+      <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+        <a href="#about" class="hover:text-sky-400 transition">About</a>
+        <a href="#skills" class="hover:text-sky-400 transition">Skills</a>
+        <a href="#certifications" class="hover:text-sky-400 transition">Certifications</a>
+        <a href="#projects" class="hover:text-sky-400 transition">Projects</a>
+        <a href="#contact" class="hover:text-sky-400 transition">Contact</a>
+      </nav>
+      <a href="#contact" class="px-4 py-2 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/30 text-sm font-medium hover:bg-sky-500 hover:text-slate-950 transition">
+        Get in Touch
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section: Left Profile Pic + Right Letter-by-Letter Animated Intro -->
+  <section class="pt-32 pb-20 md:pt-40 md:pb-28 px-6 relative overflow-hidden">
+    <!-- Ambient Glow Blobs -->
+    <div class="absolute top-24 left-10 w-80 h-80 bg-sky-500/15 rounded-full blur-3xl -z-10"></div>
+    <div class="absolute bottom-10 right-10 w-80 h-80 bg-purple-500/15 rounded-full blur-3xl -z-10"></div>
+
+    <div class="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 items-center">
+      
+      <!-- LEFT SIDE: Profile Picture with Animated Glowing Ring -->
+      <div class="md:col-span-5 flex justify-center">
+        <div class="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 animate-float">
+          <!-- Rotating Gradient Halo -->
+          <div class="absolute -inset-1.5 rounded-full glow-ring opacity-75 blur-sm"></div>
+          <div class="absolute -inset-1 rounded-full glow-ring"></div>
+          
+          <!-- Photo Container -->
+          <div class="relative w-full h-full rounded-full overflow-hidden bg-[#161B22] border-4 border-[#0D1117] shadow-2xl">
+            <!-- Tomar photo file-tar nam 'profile.jpg' diye same folder-e rakhbe -->
+            <img 
+              src="./profile.jpg" 
+              alt="Sunjida Jannat Saom" 
+              class="w-full h-full object-cover object-top"
+              onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';"
+            />
+            <!-- Fallback Avatar (Jodi profile.jpg file na thake) -->
+            <div id="avatar-fallback" style="display:none;" class="w-full h-full flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 text-center p-6">
+              <span class="text-5xl font-heading font-bold gradient-text mb-2">SJS</span>
+              <span class="text-xs text-slate-400">Rename your photo to <code>profile.jpg</code></span>
+            </div>
+          </div>
+
+          <!-- Floating Badge on Photo -->
+          <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[#161B22]/95 border border-sky-500/40 shadow-lg flex items-center gap-2 whitespace-nowrap">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span class="text-xs font-medium text-slate-200">NSDA Level 3 Certified</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: Letter-by-Letter Typewriter Name & Animated Roles -->
+      <div class="md:col-span-7 text-center md:text-left">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-xs font-medium text-sky-300 mb-5">
+          👋 Welcome to my digital space
+        </div>
+
+        <p class="text-slate-400 text-base md:text-lg font-medium mb-1">Hello, I'm</p>
+
+        <!-- Letter-by-Letter Animated Name -->
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-4 min-h-[1.2em]">
+          <span id="typed-name" class="gradient-text"></span><span id="name-cursor" class="cursor-blink"></span>
+        </h1>
+
+        <!-- Letter-by-Letter Rotating Animated Roles -->
+        <div class="text-lg sm:text-2xl font-semibold text-sky-400 mb-5 min-h-[1.6em]">
+          <span class="text-slate-300 font-normal">I am a </span>
+          <span id="typed-role" class="text-sky-400"></span><span class="cursor-blink"></span>
+        </div>
+
+        <p class="text-slate-400 max-w-xl mx-auto md:mx-0 text-sm md:text-base leading-relaxed mb-8">
+          Computer Science & Technology student at <span class="text-slate-200 font-medium">Bangladesh Sweden Polytechnic Institute (BSPI)</span> with a deep passion for <span class="text-slate-200 font-medium">Mathematics, Science, and Robotics</span>—blending analytical problem-solving with visual storytelling and Generative AI media.
+        </p>
+
+        <div class="flex flex-wrap justify-center md:justify-start gap-4">
+          <a href="#projects" class="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-purple-600 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 hover:opacity-90 transition">
+            Explore My Projects
+          </a>
+          <a href="https://github.com/Saom0323" target="_blank" class="px-6 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm transition">
+            GitHub Profile ↗
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About & Mindset Section -->
+  <section id="about" class="py-16 px-6 border-t border-slate-800/60">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
+          Where Logic Meets <span class="text-sky-400">Visual Creativity</span>
+        </h2>
+        <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-4">
+          My journey sits at the intersection of analytical science and creative design. Driven by a strong curiosity in <strong class="text-slate-200">Mathematics and Science</strong>, I am building a solid foundation in Computer Science fundamentals, Data Structures & Algorithms, and software development.
+        </p>
+        <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+          Alongside coding, I work as a <strong class="text-slate-200">Remote Graphic Designer</strong> and produce <strong class="text-slate-200">2D/3D Animations and Generative AI Visuals</strong>—combining structured logic with modern digital artistry.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="glass-card p-5 rounded-2xl">
+          <div class="text-sky-400 text-2xl font-bold font-heading mb-1">Math & Science</div>
+          <p class="text-xs text-slate-400">Analytical & logical problem-solving mindset</p>
+        </div>
+        <div class="glass-card p-5 rounded-2xl">
+          <div class="text-purple-400 text-2xl font-bold font-heading mb-1">Software & DSA</div>
+          <p class="text-xs text-slate-400">C, C++, Python, Algorithms & Robotics</p>
+        </div>
+        <div class="glass-card p-5 rounded-2xl">
+          <div class="text-emerald-400 text-2xl font-bold font-heading mb-1">Design & Gen-AI</div>
+          <p class="text-xs text-slate-400">Remote Graphic Design, Animation & AI Visuals</p>
+        </div>
+        <div class="glass-card p-5 rounded-2xl">
+          <div class="text-amber-400 text-2xl font-bold font-heading mb-1">NSDA Level 3</div>
+          <p class="text-xs text-slate-400">Certified in IT Support & Services</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-16 px-6 border-t border-slate-800/60">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Technical & Creative Toolkit</h2>
+        <p class="text-slate-400 text-sm">A balanced blend of programming, IT infrastructure, and digital media production</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Card 1: Programming -->
+        <div class="glass-card p-6 rounded-2xl">
+          <h3 class="text-lg font-bold text-sky-400 mb-4">Programming & Core CS</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">C Programming</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">C++</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Python</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Data Structures & Algorithms</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">HTML5 & CSS3</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Git & GitHub</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Robotics</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Design, Animation & Generative AI -->
+        <div class="glass-card p-6 rounded-2xl">
+          <h3 class="text-lg font-bold text-purple-400 mb-4">Design, Animation & Gen-AI</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Graphic Design</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">2D / 3D Animation</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Animated Video Production</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Generative AI Visuals</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">AI Content & Prompting</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Adobe Illustrator & Photoshop</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Figma</span>
+          </div>
+        </div>
+
+        <!-- Card 3: IT & Academic -->
+        <div class="glass-card p-6 rounded-2xl">
+          <h3 class="text-lg font-bold text-emerald-400 mb-4">IT Systems & Academics</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">IT Support & Troubleshooting</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Hardware & OS Maintenance</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Network Basics</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Mathematics & Science</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Technical Documentation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications & Education -->
+  <section id="certifications" class="py-16 px-6 border-t border-slate-800/60">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-8 text-center">Credentials & Education</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- NSDA Certification -->
+        <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
+          <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-lg">
+            ✓
+          </div>
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">National Certification</span>
+            <h3 class="text-lg font-bold text-white mt-1">IT Support and Services — Level 3</h3>
+            <p class="text-sm text-slate-300 mt-1">National Skills Development Authority (NSDA), Bangladesh</p>
+            <p class="text-xs text-slate-400 mt-2">Certified in system setup, hardware/software diagnostics, network configuration, and professional IT technical support.</p>
+          </div>
+        </div>
+
+        <!-- Academic -->
+        <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
+          <div class="p-3 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-400 font-bold text-lg">
+            🎓
+          </div>
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-sky-400">Diploma in Engineering</span>
+            <h3 class="text-lg font-bold text-white mt-1">Computer Science & Technology (CST)</h3>
+            <p class="text-sm text-slate-300 mt-1">Bangladesh Sweden Polytechnic Institute (BSPI)</p>
+            <p class="text-xs text-slate-400 mt-2">Active member of BSPI Robotics Club (Senior IT Secretary) and enthusiastic learner in Mathematics & Science.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section (Easy to Add More Projects!) -->
+  <section id="projects" class="py-16 px-6 border-t border-slate-800/60">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Featured Projects</h2>
+          <p class="text-slate-400 text-sm">Software engineering, problem-solving, and creative builds</p>
+        </div>
+        <a href="https://github.com/Saom0323?tab=repositories" target="_blank" class="text-sm text-sky-400 hover:underline">
+          View all repositories on GitHub →
+        </a>
+      </div>
+
+      <!-- PROJECT GRID -->
+      <div id="project-grid" class="grid md:grid-cols-3 gap-6">
+
+        <!-- Project 1: SafeSphere -->
+        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between p-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 text-xs rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/20">Web & Safety</span>
+              <a href="https://github.com/Saom0323/SafeSphere" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">SafeSphere</h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-4">
+              A smart emergency response system designed to streamline rapid alerts, safety coordination, and community assistance.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">HTML5</span>
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">CSS3</span>
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">UI/UX</span>
+          </div>
+        </article>
+
+        <!-- Project 2: Python GUI Calculator -->
+        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between p-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 text-xs rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20">Desktop App</span>
+              <a href="https://github.com/Saom0323" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Python GUI Calculator</h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-4">
+              A clean desktop calculator application developed in Python for the ASSET Skills Development Competition, focusing on mathematical accuracy and intuitive interface design.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">Python</span>
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">GUI</span>
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">Math Logic</span>
+          </div>
+        </article>
+
+        <!-- Project 3: Problem Solving Archive -->
+        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between p-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 text-xs rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Algorithms</span>
+              <a href="https://github.com/Saom0323/Problem-Solving" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">DSA & Problem Solving</h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-4">
+              A continuously updated repository of Data Structures, Algorithms, and mathematical programming solutions written in C, C++, and Python.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">C / C++</span>
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">Python</span>
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">DSA</span>
+          </div>
+        </article>
+
+        <!-- ============================================================
+        NOTUN PROJECT ADD KORAR TEMPLATE (Future-e eta copy-paste korbe):
+        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between p-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 text-xs rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/20">Category</span>
+              <a href="PROJECT_GITHUB_LINK" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Project Title</h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-4">
+              Project-er choto description ekhane likhbe.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">Tech 1</span>
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">Tech 2</span>
+          </div>
+        </article>
+        ============================================================ -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Footer -->
+  <footer id="contact" class="py-16 px-6 border-t border-slate-800/80 bg-[#090C10]">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">Let's Build & Create Together</h2>
+      <p class="text-slate-400 text-sm mb-6">
+        Interested in collaborating on software projects, graphic design, animation, or Generative AI visuals? Reach out directly.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 mb-10">
+        <a href="mailto:sanjidajannatsaom@gmail.com" class="px-5 py-2.5 rounded-xl bg-sky-500 text-slate-950 font-semibold text-sm hover:bg-sky-400 transition">
+          sanjidajannatsaom@gmail.com
+        </a>
+        <a href="https://github.com/Saom0323" target="_blank" class="px-5 py-2.5 rounded-xl bg-slate-800 text-white border border-slate-700 font-semibold text-sm hover:bg-slate-700 transition">
+          GitHub (@Saom0323)
+        </a>
+      </div>
+      <p class="text-xs text-slate-500">
+        © 2026 Sunjida Jannat Saom • Chittagong, Bangladesh
+      </p>
+    </div>
+  </footer>
+
+  <!-- Letter-by-Letter Typewriter Animation Script -->
+  <script>
+    const fullName = "Sunjida Jannat Saom";
+    const roles = [
+      "Software Developer in Training",
+      "Remote Graphic Designer",
+      "2D / 3D Animator",
+      "Generative AI Creator",
+      "Math & Science Enthusiast"
+    ];
+
+    const nameEl = document.getElementById("typed-name");
+    const nameCursor = document.getElementById("name-cursor");
+    const roleEl = document.getElementById("typed-role");
+
+    let nameIndex = 0;
+    function typeName() {
+      if (nameIndex < fullName.length) {
+        nameEl.textContent += fullName.charAt(nameIndex);
+        nameIndex++;
+        setTimeout(typeName, 85);
+      } else {
+        setTimeout(() => {
+          nameCursor.style.display = "none";
+          typeRoles();
+        }, 400);
+      }
+    }
+
+    let roleIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+
+    function typeRoles() {
+      const currentRole = roles[roleIdx];
+      
+      if (!isDeleting) {
+        roleEl.textContent = currentRole.substring(0, charIdx + 1);
+        charIdx++;
+        if (charIdx === currentRole.length) {
+          isDeleting = true;
+          setTimeout(typeRoles, 1800);
+          return;
+        }
+        setTimeout(typeRoles, 65);
+      } else {
+        roleEl.textContent = currentRole.substring(0, charIdx - 1);
+        charIdx--;
+        if (charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+          setTimeout(typeRoles, 300);
+          return;
+        }
+        setTimeout(typeRoles, 35);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      setTimeout(typeName, 300);
+    });
+  </script>
+
+</body>
+</html>
