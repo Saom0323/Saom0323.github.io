@@ -117,14 +117,13 @@
           
           <!-- Photo Container -->
           <div class="relative w-full h-full rounded-full overflow-hidden bg-[#161B22] border-4 border-[#0D1117] shadow-2xl">
-            <!-- Tomar photo file-tar nam 'profile.jpg' diye same folder-e rakhbe -->
             <img 
               src="./profile.jpg" 
               alt="Sunjida Jannat Saom" 
               class="w-full h-full object-cover object-top"
               onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';"
             />
-            <!-- Fallback Avatar (Jodi profile.jpg file na thake) -->
+            <!-- Fallback Avatar -->
             <div id="avatar-fallback" style="display:none;" class="w-full h-full flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 text-center p-6">
               <span class="text-5xl font-heading font-bold gradient-text mb-2">SJS</span>
               <span class="text-xs text-slate-400">Rename your photo to <code>profile.jpg</code></span>
@@ -204,8 +203,8 @@
           <p class="text-xs text-slate-400">Remote Graphic Design, Animation & AI Visuals</p>
         </div>
         <div class="glass-card p-5 rounded-2xl">
-          <div class="text-amber-400 text-2xl font-bold font-heading mb-1">NSDA Level 3</div>
-          <p class="text-xs text-slate-400">Certified in IT Support & Services</p>
+          <div class="text-amber-400 text-2xl font-bold font-heading mb-1">NSDA & British Council</div>
+          <p class="text-xs text-slate-400">Certified in IT Support, EdTech & Core Skills</p>
         </div>
       </div>
     </div>
@@ -266,24 +265,16 @@
   <!-- Certifications & Education -->
   <section id="certifications" class="py-16 px-6 border-t border-slate-800/60">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-2xl md:text-3xl font-bold text-white mb-8 text-center">Credentials & Education</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- NSDA Certification -->
-        <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
-          <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-lg">
-            ✓
-          </div>
-          <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">National Certification</span>
-            <h3 class="text-lg font-bold text-white mt-1">IT Support and Services — Level 3</h3>
-            <p class="text-sm text-slate-300 mt-1">National Skills Development Authority (NSDA), Bangladesh</p>
-            <p class="text-xs text-slate-400 mt-2">Certified in system setup, hardware/software diagnostics, network configuration, and professional IT technical support.</p>
-          </div>
-        </div>
+      <div class="text-center mb-10">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Credentials & Education</h2>
+        <p class="text-slate-400 text-sm">Academic qualifications, national skill certifications, and international professional development</p>
+      </div>
 
+      <!-- Top Row: Education & NSDA -->
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
         <!-- Academic -->
         <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
-          <div class="p-3 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-400 font-bold text-lg">
+          <div class="p-3 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-400 font-bold text-lg shrink-0">
             🎓
           </div>
           <div>
@@ -293,11 +284,96 @@
             <p class="text-xs text-slate-400 mt-2">Active member of BSPI Robotics Club (Senior IT Secretary) and enthusiastic learner in Mathematics & Science.</p>
           </div>
         </div>
+
+        <!-- NSDA Certification -->
+        <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
+          <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-lg shrink-0">
+            ✓
+          </div>
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">National Certification</span>
+            <h3 class="text-lg font-bold text-white mt-1">IT Support and Services — Level 3</h3>
+            <p class="text-sm text-slate-300 mt-1">National Skills Development Authority (NSDA), Bangladesh</p>
+            <p class="text-xs text-slate-400 mt-2">Certified in system setup, hardware/software diagnostics, network configuration, and professional IT technical support.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row: 3 British Council Certifications -->
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- British Council 1 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">
+                British Council
+              </span>
+              <span class="text-xs text-slate-400">18 Hours • Oct 2026</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">Engaging with Learning Technologies</h3>
+            <p class="text-xs text-slate-300 mb-3">British Council Partner Schools</p>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Completed 18 hours of certified training on integrating digital platforms, interactive tools, and educational technology into modern learning environments.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-[11px] text-slate-500">Issued Oct 16, 2026</span>
+            <button onclick="openCertModal('Engaging with Learning Technologies (18 Hours)', './cert-learning-tech.png')" class="text-xs font-medium text-sky-400 hover:text-sky-300 transition">
+              View Certificate ↗
+            </button>
+          </div>
+        </div>
+
+        <!-- British Council 2 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">
+                British Council
+              </span>
+              <span class="text-xs text-slate-400">15 Hours • Oct 2026</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">Future Core Skills</h3>
+            <p class="text-xs text-slate-300 mb-3">British Council Partner Schools</p>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Completed 15 hours of certified training focused on critical thinking, problem-solving, collaboration, communication, and digital literacy.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-[11px] text-slate-500">Issued Oct 17, 2026</span>
+            <button onclick="openCertModal('Future Core Skills (15 Hours)', './cert-future-skills.png')" class="text-xs font-medium text-sky-400 hover:text-sky-300 transition">
+              View Certificate ↗
+            </button>
+          </div>
+        </div>
+
+        <!-- British Council 3 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">
+                British Council
+              </span>
+              <span class="text-xs text-slate-400">9 Hours • Oct 2026</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">Classroom Management</h3>
+            <p class="text-xs text-slate-300 mb-3">British Council Partner Schools</p>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Completed 9 hours of certified training in structured instruction, student engagement strategies, and effective academic facilitation.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-[11px] text-slate-500">Issued Oct 15, 2026</span>
+            <button onclick="openCertModal('Classroom Management (9 Hours)', './cert-classroom-mgmt.png')" class="text-xs font-medium text-sky-400 hover:text-sky-300 transition">
+              View Certificate ↗
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Section (Easy to Add More Projects!) -->
+  <!-- Projects Section -->
   <section id="projects" class="py-16 px-6 border-t border-slate-800/60">
     <div class="max-w-6xl mx-auto">
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
@@ -370,26 +446,6 @@
           </div>
         </article>
 
-        <!-- ============================================================
-        NOTUN PROJECT ADD KORAR TEMPLATE (Future-e eta copy-paste korbe):
-        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between p-6">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="px-2.5 py-1 text-xs rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/20">Category</span>
-              <a href="PROJECT_GITHUB_LINK" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-2">Project Title</h3>
-            <p class="text-sm text-slate-400 leading-relaxed mb-4">
-              Project-er choto description ekhane likhbe.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">Tech 1</span>
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">Tech 2</span>
-          </div>
-        </article>
-        ============================================================ -->
-
       </div>
     </div>
   </section>
@@ -415,7 +471,26 @@
     </div>
   </footer>
 
-  <!-- Letter-by-Letter Typewriter Animation Script -->
+  <!-- Certificate Preview Modal -->
+  <div id="cert-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4" onclick="closeCertModal()">
+    <div class="relative max-w-3xl w-full bg-[#161B22] border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
+        <h3 id="cert-modal-title" class="text-base sm:text-lg font-bold text-white">Certificate Preview</h3>
+        <button onclick="closeCertModal()" class="text-slate-400 hover:text-white text-xl leading-none px-2">&times;</button>
+      </div>
+      <div class="bg-[#0D1117] rounded-xl overflow-hidden flex items-center justify-center min-h-[260px] border border-slate-800">
+        <img id="cert-modal-img" src="" alt="Certificate Preview" class="max-h-[70vh] w-auto object-contain"
+             onerror="this.style.display='none'; document.getElementById('cert-modal-fallback').style.display='block';" />
+        <div id="cert-modal-fallback" style="display:none;" class="p-8 text-center">
+          <p class="text-sm text-slate-300 font-medium mb-1">British Council Partner Schools — Certificate of Completion</p>
+          <p class="text-xs text-slate-400">Awarded to <strong class="text-white">Sunjeda Jannat Saom</strong> • Signed by Ben Maguire-Boyle (Director Schools, British Council)</p>
+          <p class="text-[11px] text-sky-400 mt-3">Tip: Save the certificate image in your portfolio folder to enable full visual preview here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts: Typewriter Animation & Certificate Modal -->
   <script>
     const fullName = "Sunjida Jannat Saom";
     const roles = [
@@ -471,6 +546,27 @@
         }
         setTimeout(typeRoles, 35);
       }
+    }
+
+    function openCertModal(title, imgSrc) {
+      const modal = document.getElementById("cert-modal");
+      const modalTitle = document.getElementById("cert-modal-title");
+      const modalImg = document.getElementById("cert-modal-img");
+      const modalFallback = document.getElementById("cert-modal-fallback");
+
+      modalTitle.textContent = title;
+      modalFallback.style.display = "none";
+      modalImg.style.display = "block";
+      modalImg.src = imgSrc;
+
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeCertModal() {
+      const modal = document.getElementById("cert-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
     }
 
     window.addEventListener("DOMContentLoaded", () => {
