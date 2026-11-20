@@ -3,59 +3,133 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sunjida Jannat Saom | Software Developer & Visual Designer</title>
+  <title>Sunjida Jannat Saom | Software Developer, Robotics & 2D/3D Animator</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --neon-cyan: #38BDF8;
+      --neon-purple: #A855F7;
+      --neon-emerald: #10B981;
+    }
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #0D1117;
+      background-color: #070B12;
       color: #E6EDF3;
       overflow-x: hidden;
     }
     h1, h2, h3, .font-heading {
       font-family: 'Space Grotesk', sans-serif;
     }
-    .glass-card {
-      background: rgba(22, 27, 34, 0.72);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(56, 189, 248, 0.16);
-      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
     }
-    .glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.55);
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.25);
+
+    /* 3D Perspective Glass Cards with Dynamic Spotlight */
+    .tilt-card {
+      position: relative;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.18);
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
     }
+    .tilt-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(56, 189, 248, 0.14),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .tilt-card:hover::before {
+      opacity: 1;
+    }
+    .tilt-card:hover {
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 18px 40px -15px rgba(56, 189, 248, 0.28);
+    }
+
+    /* Animated Gradient Text */
     .gradient-text {
-      background: linear-gradient(90deg, #38BDF8, #A855F7, #38BDF8);
-      background-size: 200% auto;
+      background: linear-gradient(90deg, #38BDF8, #A855F7, #10B981, #38BDF8);
+      background-size: 300% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: shine 4s linear infinite;
+      animation: shine 5s linear infinite;
     }
     @keyframes shine {
-      to { background-position: 200% center; }
+      to { background-position: 300% center; }
     }
-    /* Floating Profile Photo Animation */
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-    .animate-float {
-      animation: float 5s ease-in-out infinite;
-    }
-    /* Glowing Rotating Border Behind Photo */
-    @keyframes spinSlow {
+
+    /* Robotics HUD Orbital Animations */
+    @keyframes spinCW {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    .glow-ring {
-      background: conic-gradient(from 0deg, #38BDF8, #A855F7, #10B981, #38BDF8);
-      animation: spinSlow 8s linear infinite;
+    @keyframes spinCCW {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
     }
+    @keyframes float3D {
+      0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+      50% { transform: translateY(-12px) rotateX(4deg) rotateY(-4deg); }
+    }
+    @keyframes scanLine {
+      0% { top: 0%; opacity: 0; }
+      15% { opacity: 0.85; }
+      85% { opacity: 0.85; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    .hud-ring-outer {
+      border: 2px dashed rgba(56, 189, 248, 0.45);
+      animation: spinCW 18s linear infinite;
+    }
+    .hud-ring-inner {
+      border: 2px solid transparent;
+      border-top-color: #A855F7;
+      border-bottom-color: #10B981;
+      animation: spinCCW 10s linear infinite;
+    }
+    .animate-float-3d {
+      animation: float3D 6s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+    .scanner-beam {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #38BDF8, #A855F7, transparent);
+      box-shadow: 0 0 12px #38BDF8;
+      animation: scanLine 3.8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    /* Floating 3D Isometric Wireframe Cubes */
+    @keyframes cubeRotate {
+      0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(180deg); }
+    }
+    .wireframe-cube {
+      width: 54px;
+      height: 54px;
+      border: 1.5px solid rgba(56, 189, 248, 0.25);
+      box-shadow: inset 0 0 15px rgba(168, 85, 247, 0.15);
+      animation: cubeRotate 16s linear infinite;
+      pointer-events: none;
+    }
+
     /* Blinking Typewriter Cursor */
     .cursor-blink {
       display: inline-block;
@@ -70,22 +144,38 @@
       0%, 49% { opacity: 1; }
       50%, 100% { opacity: 0; }
     }
-    /* Subtle Background Grid */
-    .bg-grid {
-      background-size: 40px 40px;
+
+    /* Kinetic Scroll Reveal */
+    .reveal-section {
+      opacity: 0;
+      transform: translateY(32px) scale(0.98);
+      transition: all 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-section.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Cyber Grid Background */
+    .bg-cyber-grid {
+      background-size: 44px 44px;
       background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
     }
   </style>
 </head>
-<body class="antialiased selection:bg-sky-500/30 selection:text-sky-200 bg-grid">
+<body class="antialiased selection:bg-sky-500/30 selection:text-sky-200 bg-cyber-grid">
+
+  <!-- Interactive Robotics Particle Network Canvas -->
+  <canvas id="robotics-canvas" class="fixed inset-0 w-full h-full pointer-events-none -z-10"></canvas>
 
   <!-- Navbar -->
-  <header class="fixed top-0 w-full z-50 bg-[#0D1117]/85 backdrop-blur-md border-b border-slate-800/80">
+  <header class="fixed top-0 w-full z-50 bg-[#070B12]/80 backdrop-blur-xl border-b border-sky-500/15">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="#" class="font-heading text-xl font-bold tracking-tight text-white">
-        Saom<span class="text-sky-400">.</span>
+      <a href="#" class="font-heading text-xl font-bold tracking-tight text-white flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-sm bg-sky-400 rotate-45 inline-block animate-pulse"></span>
+        Saom<span class="text-sky-400">.SYS</span>
       </a>
       <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
         <a href="#about" class="hover:text-sky-400 transition">About</a>
@@ -94,79 +184,91 @@
         <a href="#projects" class="hover:text-sky-400 transition">Projects</a>
         <a href="#contact" class="hover:text-sky-400 transition">Contact</a>
       </nav>
-      <a href="#contact" class="px-4 py-2 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/30 text-sm font-medium hover:bg-sky-500 hover:text-slate-950 transition">
-        Get in Touch
+      <a href="#contact" class="px-4 py-2 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/40 text-xs font-mono-tech uppercase tracking-wider hover:bg-sky-500 hover:text-slate-950 transition shadow-[0_0_15px_rgba(56,189,248,0.2)]">
+        Connect // 2026
       </a>
     </div>
   </header>
 
-  <!-- Hero Section: Left Profile Pic + Right Letter-by-Letter Animated Intro -->
+  <!-- Hero Section: Robotics HUD Frame + 3D Motion Intro -->
   <section class="pt-32 pb-20 md:pt-40 md:pb-28 px-6 relative overflow-hidden">
-    <!-- Ambient Glow Blobs -->
-    <div class="absolute top-24 left-10 w-80 h-80 bg-sky-500/15 rounded-full blur-3xl -z-10"></div>
-    <div class="absolute bottom-10 right-10 w-80 h-80 bg-purple-500/15 rounded-full blur-3xl -z-10"></div>
+    <!-- Floating 3D Wireframe Decorations -->
+    <div class="hidden lg:block absolute top-28 right-16 wireframe-cube opacity-40"></div>
+    <div class="hidden lg:block absolute bottom-16 left-12 wireframe-cube opacity-30" style="animation-direction: reverse; width: 38px; height: 38px;"></div>
 
     <div class="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 items-center">
       
-      <!-- LEFT SIDE: Profile Picture with Animated Glowing Ring -->
+      <!-- LEFT SIDE: Robotics HUD Scanner & 3D Orbital Profile Frame -->
       <div class="md:col-span-5 flex justify-center">
-        <div class="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 animate-float">
-          <!-- Rotating Gradient Halo -->
-          <div class="absolute -inset-1.5 rounded-full glow-ring opacity-75 blur-sm"></div>
-          <div class="absolute -inset-1 rounded-full glow-ring"></div>
+        <div class="relative w-72 h-72 sm:w-80 sm:h-80 flex items-center justify-center animate-float-3d">
           
-          <!-- Photo Container -->
-          <div class="relative w-full h-full rounded-full overflow-hidden bg-[#161B22] border-4 border-[#0D1117] shadow-2xl">
+          <!-- Outer Rotating Robotics HUD Dashed Ring -->
+          <div class="absolute inset-0 rounded-full hud-ring-outer"></div>
+          
+          <!-- Inner Counter-Rotating Energy Arc -->
+          <div class="absolute inset-3 rounded-full hud-ring-inner"></div>
+
+          <!-- Corner HUD Brackets -->
+          <div class="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-sky-400"></div>
+          <div class="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-purple-400"></div>
+          <div class="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-purple-400"></div>
+          <div class="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-sky-400"></div>
+
+          <!-- Photo Container with Laser Scan Effect -->
+          <div class="relative w-56 h-56 sm:w-64 sm:h-64 rounded-full overflow-hidden bg-[#0F172A] border-2 border-sky-400/50 shadow-[0_0_35px_rgba(56,189,248,0.25)]">
+            <div class="scanner-beam"></div>
             <img 
               src="./profile.jpg" 
               alt="Sunjida Jannat Saom" 
               class="w-full h-full object-cover object-top"
               onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';"
             />
-            <!-- Fallback Avatar -->
-            <div id="avatar-fallback" style="display:none;" class="w-full h-full flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 text-center p-6">
+            <div id="avatar-fallback" style="display:none;" class="w-full h-full flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-slate-950 text-center p-6">
               <span class="text-5xl font-heading font-bold gradient-text mb-2">SJS</span>
               <span class="text-xs text-slate-400">Rename your photo to <code>profile.jpg</code></span>
             </div>
           </div>
 
-          <!-- Floating Badge on Photo -->
-          <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[#161B22]/95 border border-sky-500/40 shadow-lg flex items-center gap-2 whitespace-nowrap">
+          <!-- Top Telemetry Tag -->
+          <div class="absolute -top-4 px-3 py-1 rounded bg-[#0F172A]/95 border border-purple-500/40 text-[10px] font-mono-tech text-purple-300 tracking-widest uppercase shadow-lg">
+            2D/3D MOTION • ROBOTICS
+          </div>
+
+          <!-- Bottom Status Badge -->
+          <div class="absolute -bottom-3 px-4 py-1.5 rounded-full bg-[#0F172A]/95 border border-emerald-500/40 shadow-lg flex items-center gap-2 whitespace-nowrap">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span class="text-xs font-medium text-slate-200">NSDA Level 3 Certified</span>
+            <span class="text-xs font-mono-tech text-slate-200">SOFTWARE DEVELOPER . ACTIVE</span>
           </div>
         </div>
       </div>
 
-      <!-- RIGHT SIDE: Letter-by-Letter Typewriter Name & Animated Roles -->
+      <!-- RIGHT SIDE: Kinetic Typewriter Intro -->
       <div class="md:col-span-7 text-center md:text-left">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-xs font-medium text-sky-300 mb-5">
-          👋 Welcome to my digital space
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-sky-500/10 border border-sky-500/30 text-xs font-mono-tech text-sky-300 mb-5">
+          <span class="text-emerald-400">●</span> SYSTEM.INIT("CREATIVE_ENGINEER")
         </div>
 
         <p class="text-slate-400 text-base md:text-lg font-medium mb-1">Hello, I'm</p>
 
-        <!-- Letter-by-Letter Animated Name -->
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-4 min-h-[1.2em]">
           <span id="typed-name" class="gradient-text"></span><span id="name-cursor" class="cursor-blink"></span>
         </h1>
 
-        <!-- Letter-by-Letter Rotating Animated Roles -->
         <div class="text-lg sm:text-2xl font-semibold text-sky-400 mb-5 min-h-[1.6em]">
-          <span class="text-slate-300 font-normal">I am a </span>
+          <span class="text-slate-400 font-normal font-mono-tech text-base sm:text-xl">&gt; </span>
           <span id="typed-role" class="text-sky-400"></span><span class="cursor-blink"></span>
         </div>
 
         <p class="text-slate-400 max-w-xl mx-auto md:mx-0 text-sm md:text-base leading-relaxed mb-8">
-          Computer Science & Technology student at <span class="text-slate-200 font-medium">Bangladesh Sweden Polytechnic Institute (BSPI)</span> with a deep passion for <span class="text-slate-200 font-medium">Mathematics, Science, and Robotics</span>—blending analytical problem-solving with visual storytelling and Generative AI media.
+          Computer Science & Technology student at <span class="text-slate-200 font-medium">Bangladesh Sweden Polytechnic Institute (BSPI)</span> & Senior IT Secretary at <span class="text-sky-300 font-medium">BSPI Robotics Club</span>—combining <span class="text-slate-200 font-medium">Software Engineering, Mathematics, and Robotics</span> with <span class="text-purple-300 font-medium">2D/3D Animation & Generative AI Visuals</span>.
         </p>
 
         <div class="flex flex-wrap justify-center md:justify-start gap-4">
-          <a href="#projects" class="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-purple-600 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 hover:opacity-90 transition">
-            Explore My Projects
+          <a href="#projects" class="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 hover:scale-105 transition transform">
+            Launch Projects ↗
           </a>
-          <a href="https://github.com/Saom0323" target="_blank" class="px-6 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm transition">
-            GitHub Profile ↗
+          <a href="https://github.com/Saom0323" target="_blank" class="px-6 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-sky-500/40 font-semibold text-sm transition">
+            GitHub (@Saom0323)
           </a>
         </div>
       </div>
@@ -175,87 +277,92 @@
   </section>
 
   <!-- About & Mindset Section -->
-  <section id="about" class="py-16 px-6 border-t border-slate-800/60">
+  <section id="about" class="py-16 px-6 border-t border-slate-800/70 reveal-section">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
       <div>
+        <div class="text-xs font-mono-tech text-sky-400 uppercase tracking-widest mb-2">// 01. ARCHITECTURE & MOTION</div>
         <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
-          Where Logic Meets <span class="text-sky-400">Visual Creativity</span>
+          Where Robotics Logic Meets <span class="gradient-text">2D/3D Animation</span>
         </h2>
         <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-4">
-          My journey sits at the intersection of analytical science and creative design. Driven by a strong curiosity in <strong class="text-slate-200">Mathematics and Science</strong>, I am building a solid foundation in Computer Science fundamentals, Data Structures & Algorithms, and software development.
+          My work bridges analytical engineering and visual motion design. Driven by <strong class="text-slate-200">Mathematics, Science, and Robotics</strong>, I build structured software solutions—from management systems to interactive games—while serving as Senior IT Secretary at the BSPI Robotics Club.
         </p>
         <p class="text-slate-400 text-sm md:text-base leading-relaxed">
-          Alongside coding, I work as a <strong class="text-slate-200">Remote Graphic Designer</strong> and produce <strong class="text-slate-200">2D/3D Animations and Generative AI Visuals</strong>—combining structured logic with modern digital artistry.
+          In parallel, I work as a <strong class="text-slate-200">Remote Graphic Designer & 2D/3D Animator</strong>—crafting animated videos, motion graphics, and <strong class="text-slate-200">Generative AI visual storytelling</strong>.
         </p>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <div class="glass-card p-5 rounded-2xl">
-          <div class="text-sky-400 text-2xl font-bold font-heading mb-1">Math & Science</div>
-          <p class="text-xs text-slate-400">Analytical & logical problem-solving mindset</p>
+        <div class="tilt-card p-5 rounded-2xl">
+          <div class="text-sky-400 text-xl font-bold font-heading mb-1">Robotics & Logic</div>
+          <p class="text-xs text-slate-400">BSPI Robotics Club IT Lead, Math & Science problem solving</p>
         </div>
-        <div class="glass-card p-5 rounded-2xl">
-          <div class="text-purple-400 text-2xl font-bold font-heading mb-1">Software & DSA</div>
-          <p class="text-xs text-slate-400">C, C++, Python, Algorithms & Robotics</p>
+        <div class="tilt-card p-5 rounded-2xl">
+          <div class="text-purple-400 text-xl font-bold font-heading mb-1">2D / 3D Animation</div>
+          <p class="text-xs text-slate-400">Motion storytelling, animated videos & visual design</p>
         </div>
-        <div class="glass-card p-5 rounded-2xl">
-          <div class="text-emerald-400 text-2xl font-bold font-heading mb-1">Design & Gen-AI</div>
-          <p class="text-xs text-slate-400">Remote Graphic Design, Animation & AI Visuals</p>
+        <div class="tilt-card p-5 rounded-2xl">
+          <div class="text-emerald-400 text-xl font-bold font-heading mb-1">Software & Systems</div>
+          <p class="text-xs text-slate-400">Management Web Apps, Games, C/C++, Python & DSA</p>
         </div>
-        <div class="glass-card p-5 rounded-2xl">
-          <div class="text-amber-400 text-2xl font-bold font-heading mb-1">NSDA & British Council</div>
-          <p class="text-xs text-slate-400">Certified in IT Support, EdTech & Core Skills</p>
+        <div class="tilt-card p-5 rounded-2xl">
+          <div class="text-amber-400 text-xl font-bold font-heading mb-1">Gen-AI & Certified</div>
+          <p class="text-xs text-slate-400">AI Visuals, NSDA Level-3 & British Council Certified</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="py-16 px-6 border-t border-slate-800/60">
+  <section id="skills" class="py-16 px-6 border-t border-slate-800/70 reveal-section">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12">
-        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Technical & Creative Toolkit</h2>
-        <p class="text-slate-400 text-sm">A balanced blend of programming, IT infrastructure, and digital media production</p>
+        <div class="text-xs font-mono-tech text-purple-400 uppercase tracking-widest mb-2">// 02. SYSTEM CAPABILITIES</div>
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Technical, Robotics & Animation Stack</h2>
+        <p class="text-slate-400 text-sm">Interactive 3D skill modules across code, hardware, and motion design</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <!-- Card 1: Programming -->
-        <div class="glass-card p-6 rounded-2xl">
-          <h3 class="text-lg font-bold text-sky-400 mb-4">Programming & Core CS</h3>
+        <div class="tilt-card p-6 rounded-2xl">
+          <h3 class="text-lg font-bold text-sky-400 mb-4 flex items-center gap-2">
+            <span>⚡</span> Programming & Robotics
+          </h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">C Programming</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">C++</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Python</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Data Structures & Algorithms</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">HTML5 & CSS3</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Git & GitHub</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Robotics</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">C Programming</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">C++</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Python</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Data Structures & Algorithms</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Robotics Systems</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">HTML5, CSS3 & JS</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Git & GitHub</span>
           </div>
         </div>
 
-        <!-- Card 2: Design, Animation & Generative AI -->
-        <div class="glass-card p-6 rounded-2xl">
-          <h3 class="text-lg font-bold text-purple-400 mb-4">Design, Animation & Gen-AI</h3>
+        <div class="tilt-card p-6 rounded-2xl">
+          <h3 class="text-lg font-bold text-purple-400 mb-4 flex items-center gap-2">
+            <span>🎬</span> 2D/3D Animation & Gen-AI
+          </h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Graphic Design</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">2D / 3D Animation</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Animated Video Production</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Generative AI Visuals</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">AI Content & Prompting</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Adobe Illustrator & Photoshop</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Figma</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">2D / 3D Animation</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Animated Video Production</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Motion Graphics</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Remote Graphic Design</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Generative AI Visuals</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Adobe Illustrator & Photoshop</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Figma</span>
           </div>
         </div>
 
-        <!-- Card 3: IT & Academic -->
-        <div class="glass-card p-6 rounded-2xl">
-          <h3 class="text-lg font-bold text-emerald-400 mb-4">IT Systems & Academics</h3>
+        <div class="tilt-card p-6 rounded-2xl">
+          <h3 class="text-lg font-bold text-emerald-400 mb-4 flex items-center gap-2">
+            <span>🛠️</span> IT Systems & Academics
+          </h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">IT Support & Troubleshooting</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Hardware & OS Maintenance</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Network Basics</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Mathematics & Science</span>
-            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700">Technical Documentation</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">IT Support & Diagnostics</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">PC Assembling & OS</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Basic Networking</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Mathematics & Science</span>
+            <span class="px-3 py-1.5 text-xs rounded-lg bg-slate-900/90 text-slate-200 border border-slate-700/80">Learning Technologies</span>
           </div>
         </div>
       </div>
@@ -263,9 +370,10 @@
   </section>
 
   <!-- Certifications & Education -->
-  <section id="certifications" class="py-16 px-6 border-t border-slate-800/60">
+  <section id="certifications" class="py-16 px-6 border-t border-slate-800/70 reveal-section">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-10">
+        <div class="text-xs font-mono-tech text-emerald-400 uppercase tracking-widest mb-2">// 03. VERIFIED CREDENTIALS</div>
         <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Credentials & Education</h2>
         <p class="text-slate-400 text-sm">Academic qualifications, national skill certifications, and international professional development</p>
       </div>
@@ -273,28 +381,45 @@
       <!-- Top Row: Education & NSDA -->
       <div class="grid md:grid-cols-2 gap-6 mb-6">
         <!-- Academic -->
-        <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
-          <div class="p-3 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-400 font-bold text-lg shrink-0">
-            🎓
-          </div>
-          <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-sky-400">Diploma in Engineering</span>
-            <h3 class="text-lg font-bold text-white mt-1">Computer Science & Technology (CST)</h3>
-            <p class="text-sm text-slate-300 mt-1">Bangladesh Sweden Polytechnic Institute (BSPI)</p>
-            <p class="text-xs text-slate-400 mt-2">Active member of BSPI Robotics Club (Senior IT Secretary) and enthusiastic learner in Mathematics & Science.</p>
+        <div class="tilt-card p-6 rounded-2xl flex flex-col justify-between">
+          <div class="flex items-start gap-4">
+            <div class="p-3 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-400 font-bold text-lg shrink-0">
+              🎓
+            </div>
+            <div>
+              <span class="text-xs font-mono-tech uppercase tracking-wider text-sky-400">Diploma in Engineering</span>
+              <h3 class="text-lg font-bold text-white mt-1">Computer Science & Technology (CST)</h3>
+              <p class="text-sm text-slate-300 mt-1">Bangladesh Sweden Polytechnic Institute (BSPI)</p>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                Senior IT Secretary at BSPI Robotics Club and passionate researcher in Mathematics, Science, and software systems.
+              </p>
+            </div>
           </div>
         </div>
 
-        <!-- NSDA Certification -->
-        <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
-          <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-lg shrink-0">
-            ✓
-          </div>
-          <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">National Certification</span>
-            <h3 class="text-lg font-bold text-white mt-1">IT Support and Services — Level 3</h3>
-            <p class="text-sm text-slate-300 mt-1">National Skills Development Authority (NSDA), Bangladesh</p>
-            <p class="text-xs text-slate-400 mt-2">Certified in system setup, hardware/software diagnostics, network configuration, and professional IT technical support.</p>
+        <!-- NSDA National Skills Certificate -->
+        <div class="tilt-card p-6 rounded-2xl flex flex-col justify-between">
+          <div class="flex items-start gap-4">
+            <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-lg shrink-0">
+              ✓
+            </div>
+            <div class="w-full">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-xs font-mono-tech uppercase tracking-wider text-emerald-400">National Skills Certificate (BNQF)</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Valid until 02-01-2031</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mt-1">IT Support Service — Level-3</h3>
+              <p class="text-sm text-slate-300 mt-1">National Skills Development Authority (NSDA), Bangladesh</p>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                Certified across 10 competency units including PC assembling, OS optimization, hardware diagnostics, basic networking, data backup/recovery, and workplace IT support.
+              </p>
+              <div class="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                <span class="text-[11px] text-slate-500">Issued: 03-01-2026</span>
+                <button onclick="openCertModal('NSDA National Skills Certificate — IT Support Service (Level-3)', './cert-nsda.png')" class="text-xs font-medium text-emerald-400 hover:text-emerald-300 transition">
+                  View Certificate ↗
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -302,10 +427,10 @@
       <!-- Bottom Row: 3 British Council Certifications -->
       <div class="grid md:grid-cols-3 gap-6">
         <!-- British Council 1 -->
-        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+        <div class="tilt-card p-6 rounded-2xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">
+              <span class="px-2.5 py-1 text-[11px] font-mono-tech uppercase tracking-wider rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">
                 British Council
               </span>
               <span class="text-xs text-slate-400">18 Hours • Oct 2026</span>
@@ -325,10 +450,10 @@
         </div>
 
         <!-- British Council 2 -->
-        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+        <div class="tilt-card p-6 rounded-2xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">
+              <span class="px-2.5 py-1 text-[11px] font-mono-tech uppercase tracking-wider rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">
                 British Council
               </span>
               <span class="text-xs text-slate-400">15 Hours • Oct 2026</span>
@@ -348,10 +473,10 @@
         </div>
 
         <!-- British Council 3 -->
-        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+        <div class="tilt-card p-6 rounded-2xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">
+              <span class="px-2.5 py-1 text-[11px] font-mono-tech uppercase tracking-wider rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/30">
                 British Council
               </span>
               <span class="text-xs text-slate-400">9 Hours • Oct 2026</span>
@@ -373,27 +498,46 @@
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section id="projects" class="py-16 px-6 border-t border-slate-800/60">
+  <!-- Projects Section (All 7 Projects Included) -->
+  <section id="projects" class="py-16 px-6 border-t border-slate-800/70 reveal-section">
     <div class="max-w-6xl mx-auto">
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
         <div>
-          <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Featured Projects</h2>
-          <p class="text-slate-400 text-sm">Software engineering, problem-solving, and creative builds</p>
+          <div class="text-xs font-mono-tech text-sky-400 uppercase tracking-widest mb-2">// 04. DEPLOYED BUILDS</div>
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Featured Software & Game Projects</h2>
+          <p class="text-slate-400 text-sm">Real-world management systems, web applications, interactive games, and algorithmic builds</p>
         </div>
-        <a href="https://github.com/Saom0323?tab=repositories" target="_blank" class="text-sm text-sky-400 hover:underline">
-          View all repositories on GitHub →
+        <a href="https://github.com/Saom0323?tab=repositories" target="_blank" class="text-sm text-sky-400 hover:underline font-mono-tech">
+          View all repositories →
         </a>
       </div>
 
-      <!-- PROJECT GRID -->
       <div id="project-grid" class="grid md:grid-cols-3 gap-6">
-
-        <!-- Project 1: SafeSphere -->
-        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between p-6">
+        
+        <!-- Project 1: Competition Management Web (Real-World Academy Deployment) -->
+        <article class="tilt-card rounded-2xl flex flex-col justify-between p-6 border-sky-400/35">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <span class="px-2.5 py-1 text-xs rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/20">Web & Safety</span>
+              <span class="px-2.5 py-1 text-xs font-mono-tech rounded-md bg-amber-500/15 text-amber-300 border border-amber-500/30">Event & Scoring Web</span>
+              <a href="https://github.com/Saom0323" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Competition Management Web</h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-4">
+              Built for <span class="text-slate-200 font-medium">Darul Arqam Model Academy's Cultural Fest</span> to manage multi-category student registration, group divisions, and automated 100-mark judges' scoring rubrics.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Web App</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Evaluation Logic</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Live Event</span>
+          </div>
+        </article>
+
+        <!-- Project 2: SafeSphere -->
+        <article class="tilt-card rounded-2xl flex flex-col justify-between p-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 text-xs font-mono-tech rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/20">Web & Safety</span>
               <a href="https://github.com/Saom0323/SafeSphere" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
             </div>
             <h3 class="text-xl font-bold text-white mb-2">SafeSphere</h3>
@@ -402,17 +546,74 @@
             </p>
           </div>
           <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">HTML5</span>
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">CSS3</span>
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">UI/UX</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">HTML5</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">CSS3</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">UI/UX</span>
           </div>
         </article>
 
-        <!-- Project 2: Python GUI Calculator -->
-        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between p-6">
+        <!-- Project 3: Education Management System -->
+        <article class="tilt-card rounded-2xl flex flex-col justify-between p-6">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <span class="px-2.5 py-1 text-xs rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20">Desktop App</span>
+              <span class="px-2.5 py-1 text-xs font-mono-tech rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">EdTech System</span>
+              <a href="https://github.com/Saom0323" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Education Management System</h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-4">
+              A structured academic management platform for organizing student enrollment, batch schedules, attendance tracking, and performance records.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Student Records</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Scheduling</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Database</span>
+          </div>
+        </article>
+
+        <!-- Project 4: Restaurant Management System -->
+        <article class="tilt-card rounded-2xl flex flex-col justify-between p-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 text-xs font-mono-tech rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/20">POS & Operations</span>
+              <a href="https://github.com/Saom0323" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Restaurant Management System</h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-4">
+              An operational management application handling digital food menus, customer order processing, table tracking, and automated invoice calculation.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Order Flow</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Billing Logic</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Management</span>
+          </div>
+        </article>
+
+        <!-- Project 5: Interactive Puzzle Game -->
+        <article class="tilt-card rounded-2xl flex flex-col justify-between p-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 text-xs font-mono-tech rounded-md bg-fuchsia-500/10 text-fuchsia-400 border border-fuchsia-500/20">Game Dev</span>
+              <a href="https://github.com/Saom0323" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Interactive Puzzle Game</h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-4">
+              A logic-driven puzzle game featuring interactive tile/state mechanics, move counters, win-state validation, and responsive visual feedback.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Game Logic</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Interactive UI</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">State Control</span>
+          </div>
+        </article>
+
+        <!-- Project 6: Python GUI Calculator -->
+        <article class="tilt-card rounded-2xl flex flex-col justify-between p-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 text-xs font-mono-tech rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20">Desktop App</span>
               <a href="https://github.com/Saom0323" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
             </div>
             <h3 class="text-xl font-bold text-white mb-2">Python GUI Calculator</h3>
@@ -421,17 +622,17 @@
             </p>
           </div>
           <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">Python</span>
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">GUI</span>
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">Math Logic</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Python</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">GUI</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Math Logic</span>
           </div>
         </article>
 
-        <!-- Project 3: Problem Solving Archive -->
-        <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between p-6">
+        <!-- Project 7: Problem Solving Archive -->
+        <article class="tilt-card rounded-2xl flex flex-col justify-between p-6 md:col-span-3 lg:col-span-1">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <span class="px-2.5 py-1 text-xs rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Algorithms</span>
+              <span class="px-2.5 py-1 text-xs font-mono-tech rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Algorithms</span>
               <a href="https://github.com/Saom0323/Problem-Solving" target="_blank" class="text-xs text-slate-400 hover:text-white">Code ↗</a>
             </div>
             <h3 class="text-xl font-bold text-white mb-2">DSA & Problem Solving</h3>
@@ -440,9 +641,9 @@
             </p>
           </div>
           <div class="flex flex-wrap gap-2 pt-3 border-t border-slate-800">
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">C / C++</span>
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">Python</span>
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded">DSA</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">C / C++</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">Python</span>
+            <span class="text-xs text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded">DSA</span>
           </div>
         </article>
 
@@ -451,54 +652,55 @@
   </section>
 
   <!-- Contact Footer -->
-  <footer id="contact" class="py-16 px-6 border-t border-slate-800/80 bg-[#090C10]">
+  <footer id="contact" class="py-16 px-6 border-t border-sky-500/15 bg-[#05080E]">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">Let's Build & Create Together</h2>
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">Let's Build, Animate & Innovate</h2>
       <p class="text-slate-400 text-sm mb-6">
-        Interested in collaborating on software projects, graphic design, animation, or Generative AI visuals? Reach out directly.
+        Open for collaborations in Software Development, Robotics, Graphic Design, 2D/3D Animation, and Generative AI Media.
       </p>
       <div class="flex flex-wrap justify-center gap-4 mb-10">
-        <a href="mailto:sanjidajannatsaom@gmail.com" class="px-5 py-2.5 rounded-xl bg-sky-500 text-slate-950 font-semibold text-sm hover:bg-sky-400 transition">
+        <a href="mailto:sanjidajannatsaom@gmail.com" class="px-5 py-2.5 rounded-xl bg-sky-500 text-slate-950 font-semibold text-sm hover:bg-sky-400 transition shadow-[0_0_20px_rgba(56,189,248,0.3)]">
           sanjidajannatsaom@gmail.com
         </a>
-        <a href="https://github.com/Saom0323" target="_blank" class="px-5 py-2.5 rounded-xl bg-slate-800 text-white border border-slate-700 font-semibold text-sm hover:bg-slate-700 transition">
+        <a href="https://github.com/Saom0323" target="_blank" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white border border-slate-700 hover:border-sky-500/50 font-semibold text-sm transition">
           GitHub (@Saom0323)
         </a>
       </div>
-      <p class="text-xs text-slate-500">
-        © 2026 Sunjida Jannat Saom • Chittagong, Bangladesh
+      <p class="text-xs font-mono-tech text-slate-500">
+        © 2026 SUNJIDA JANNAT SAOM // CHITTAGONG, BANGLADESH
       </p>
     </div>
   </footer>
 
   <!-- Certificate Preview Modal -->
-  <div id="cert-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4" onclick="closeCertModal()">
-    <div class="relative max-w-3xl w-full bg-[#161B22] border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl" onclick="event.stopPropagation()">
+  <div id="cert-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4" onclick="closeCertModal()">
+    <div class="relative max-w-3xl w-full bg-[#0F172A] border border-sky-500/40 rounded-2xl p-4 sm:p-6 shadow-[0_0_40px_rgba(56,189,248,0.2)]" onclick="event.stopPropagation()">
       <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
         <h3 id="cert-modal-title" class="text-base sm:text-lg font-bold text-white">Certificate Preview</h3>
         <button onclick="closeCertModal()" class="text-slate-400 hover:text-white text-xl leading-none px-2">&times;</button>
       </div>
-      <div class="bg-[#0D1117] rounded-xl overflow-hidden flex items-center justify-center min-h-[260px] border border-slate-800">
+      <div class="bg-[#070B12] rounded-xl overflow-hidden flex items-center justify-center min-h-[260px] border border-slate-800">
         <img id="cert-modal-img" src="" alt="Certificate Preview" class="max-h-[70vh] w-auto object-contain"
              onerror="this.style.display='none'; document.getElementById('cert-modal-fallback').style.display='block';" />
         <div id="cert-modal-fallback" style="display:none;" class="p-8 text-center">
-          <p class="text-sm text-slate-300 font-medium mb-1">British Council Partner Schools — Certificate of Completion</p>
-          <p class="text-xs text-slate-400">Awarded to <strong class="text-white">Sunjeda Jannat Saom</strong> • Signed by Ben Maguire-Boyle (Director Schools, British Council)</p>
+          <p class="text-sm text-slate-300 font-medium mb-1">Verified Credential Preview</p>
+          <p class="text-xs text-slate-400">Awarded to <strong class="text-white">Sunjida Jannat Saom</strong></p>
           <p class="text-[11px] text-sky-400 mt-3">Tip: Save the certificate image in your portfolio folder to enable full visual preview here.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Scripts: Typewriter Animation & Certificate Modal -->
+  <!-- Interactive Robotics Particle Network, 3D Card Tilt & Typewriter Scripts -->
   <script>
+    // 1. Typewriter Animation
     const fullName = "Sunjida Jannat Saom";
     const roles = [
+      "2D / 3D Motion Animator",
+      "Robotics & Tech Enthusiast",
       "Software Developer in Training",
       "Remote Graphic Designer",
-      "2D / 3D Animator",
-      "Generative AI Creator",
-      "Math & Science Enthusiast"
+      "Generative AI Visual Creator"
     ];
 
     const nameEl = document.getElementById("typed-name");
@@ -510,12 +712,12 @@
       if (nameIndex < fullName.length) {
         nameEl.textContent += fullName.charAt(nameIndex);
         nameIndex++;
-        setTimeout(typeName, 85);
+        setTimeout(typeName, 80);
       } else {
         setTimeout(() => {
           nameCursor.style.display = "none";
           typeRoles();
-        }, 400);
+        }, 350);
       }
     }
 
@@ -525,29 +727,151 @@
 
     function typeRoles() {
       const currentRole = roles[roleIdx];
-      
       if (!isDeleting) {
         roleEl.textContent = currentRole.substring(0, charIdx + 1);
         charIdx++;
         if (charIdx === currentRole.length) {
           isDeleting = true;
-          setTimeout(typeRoles, 1800);
+          setTimeout(typeRoles, 1700);
           return;
         }
-        setTimeout(typeRoles, 65);
+        setTimeout(typeRoles, 60);
       } else {
         roleEl.textContent = currentRole.substring(0, charIdx - 1);
         charIdx--;
         if (charIdx === 0) {
           isDeleting = false;
           roleIdx = (roleIdx + 1) % roles.length;
-          setTimeout(typeRoles, 300);
+          setTimeout(typeRoles, 280);
           return;
         }
-        setTimeout(typeRoles, 35);
+        setTimeout(typeRoles, 32);
       }
     }
 
+    // 2. Interactive 3D Perspective Tilt & Spotlight on Cards
+    document.querySelectorAll(".tilt-card").forEach(card => {
+      card.addEventListener("mousemove", e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -6;
+        const rotateY = ((x - centerX) / centerX) * 6;
+
+        card.style.setProperty("--mouse-x", `${x}px`);
+        card.style.setProperty("--mouse-y", `${y}px`);
+        card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)";
+      });
+    });
+
+    // 3. Scroll Reveal Observer
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal-section").forEach(sec => revealObserver.observe(sec));
+
+    // 4. Interactive Robotics Neural Particle Canvas
+    const canvas = document.getElementById("robotics-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let mouse = { x: null, y: null, radius: 140 };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    window.addEventListener("mousemove", e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    class NodeParticle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.65;
+        this.vy = (Math.random() - 0.5) * 0.65;
+        this.size = Math.random() * 2 + 1;
+        this.color = Math.random() > 0.5 ? "rgba(56, 189, 248, 0.7)" : "rgba(168, 85, 247, 0.7)";
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      const count = Math.min(65, Math.floor((canvas.width * canvas.height) / 18000));
+      for (let i = 0; i < count; i++) {
+        particles.push(new NodeParticle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(56, 189, 248, ${0.18 * (1 - dist / 130)})`;
+            ctx.lineWidth = 0.8;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+
+        if (mouse.x !== null) {
+          const dx = particles[i].x - mouse.x;
+          const dy = particles[i].y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < mouse.radius) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(168, 85, 247, ${0.45 * (1 - dist / mouse.radius)})`;
+            ctx.lineWidth = 1.1;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    // 5. Certificate Modal
     function openCertModal(title, imgSrc) {
       const modal = document.getElementById("cert-modal");
       const modalTitle = document.getElementById("cert-modal-title");
